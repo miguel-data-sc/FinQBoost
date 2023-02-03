@@ -1,3 +1,17 @@
+###############
+
+# (Additional files/folders to ignore)
+#
+.Rproj
+# folders/files begining with:
+tmp*
+# folders:
+data
+input
+outputs
+
+
+
 # History files
 .Rhistory
 .Rapp.history
