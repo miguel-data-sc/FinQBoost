@@ -2,7 +2,7 @@
 
 # (Additional files/folders to ignore)
 #
-.Rproj
+*.Rproj
 # folders/files begining with:
 tmp*
 # folders:
