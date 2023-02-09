@@ -1,4 +1,3 @@
-#User input
 cat("\n################################################################\n")
 cat(" 4 WEEK AHEAD FORECAST RELATIVE TO  WEEKLY ADJUSTED CLOSE \n")
 cat("################################################################\n\n")
@@ -22,11 +21,8 @@ if (start_date < as.Date("2022-09-01")) {
   freeze_DRE <- TRUE
 }
 
-# Run the first R script
+# Run R script to create template of forecasts, (no decisions)
 source("preprocess-and-forecast.R")
-
-# # Run the second R script
-# source("src/process_data.R")
 
 
 
