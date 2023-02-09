@@ -3,6 +3,8 @@
 # (Additional files/folders to ignore)
 #
 *.Rproj
+*.Rmd
+*.pdf
 # folders/files begining with:
 tmp*
 # folders:
