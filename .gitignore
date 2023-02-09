@@ -4,6 +4,7 @@
 #
 *.Rproj
 *.Rmd
+#
 *.pdf
 # folders/files begining with:
 tmp*
