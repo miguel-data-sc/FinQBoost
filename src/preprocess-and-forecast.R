@@ -49,7 +49,8 @@ if (!is.na(last_known_date)){
 
 #___________________________________
 # make DRE a constant value in all historical data (last 4 months of competition)
-if(freeze_DRE == TRUE){
+
+if(("DRE" %in% names(dt)) & (freeze_DRE == TRUE)){
   dt[, DRE := DRE[.N]]
   cat("\n\nDRE price history set to constant value\n")
 }
@@ -416,6 +417,13 @@ print(colSums(template[, Rank1:Rank5]))
 
 fwrite(template, file = "../outputs/template.csv")
 
+# save sessionInfo() output ?
+# capture.output(sessionInfo(), file="../sessionInfo.txt")
+
+
 cat("\nforecast template saved in ../outputs/template.csv")
 cat("\n--------------------------------------------------------------------\n\n")
+
+
+
 
