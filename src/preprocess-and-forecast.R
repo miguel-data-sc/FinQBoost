@@ -85,11 +85,11 @@ postprocess_sub <- function(submission,
   
   # column balance:
   if(balance_columns){  
-    submission[, `:=`(Rank5= Rank5-(sum(Rank5)-20)/100,
-                      Rank4= Rank4-(sum(Rank4)-20)/100,
-                      Rank3= Rank3-(sum(Rank3)-20)/100,
-                      Rank2= Rank2-(sum(Rank2)-20)/100,
-                      Rank1= Rank1-(sum(Rank1)-20)/100
+    submission[, `:=`(Rank5= Rank5-(sum(Rank5)-20)/.N,
+                      Rank4= Rank4-(sum(Rank4)-20)/.N,
+                      Rank3= Rank3-(sum(Rank3)-20)/.N,
+                      Rank2= Rank2-(sum(Rank2)-20)/.N,
+                      Rank1= Rank1-(sum(Rank1)-20)/.N
     )]  
   }
   return(submission)
@@ -352,14 +352,10 @@ system.time({
   
   if (length(excluded_feats)>0){
     dm_val <-  xgb.DMatrix(
-      data = as.matrix(val_1out_valset[, .SD, .SDcols=-c("index", "target", excluded_feats)]),            
-      
-      label = val_1out_valset[, target]
+      data = as.matrix(val_1out_valset[, .SD, .SDcols=-c("index", "target", excluded_feats)])
     )}else{
       dm_val <-  xgb.DMatrix(
-        data = as.matrix(val_1out_valset[, .SD, .SDcols=-c("index", "target")]),            
-        
-        label = val_1out_valset[, target]
+      data = as.matrix(val_1out_valset[, .SD, .SDcols=-c("index", "target")])
       )
     }
   
