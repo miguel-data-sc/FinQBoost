@@ -141,8 +141,8 @@ process_data <- function(dt){
     #cat(i, "| ")
     dt_long[, tmp_rollsd_pctlrank1d := roll_sd(percentile_returns1d, width = window_size_n4wmonths*20), by = prod] # ***
     dt_long[, tmp_rollsd_pctlrank1d_prev :=  shift(tmp_rollsd_pctlrank1d,20), by = prod] # ***
-    dt_long[, paste0("newfeat_rollsd_pctlrank1d_prev_windown4wmonths_", window_size_n4wmonths) := tmp_rollsd_pctlrank1d_prev]#   roll20sd of 1d returns
-    dt_long[, paste0("newfeat_rollsd_pctlrank1d_windown4wmonths_", window_size_n4wmonths) := tmp_rollsd_pctlrank1d]#   roll20sd of 1d returns
+    dt_long[, paste0("rollsd_pctlrank1d_prev_windown4wmonths_", window_size_n4wmonths) := tmp_rollsd_pctlrank1d_prev]#   roll20sd of 1d returns
+    dt_long[, paste0("rollsd_pctlrank1d_windown4wmonths_", window_size_n4wmonths) := tmp_rollsd_pctlrank1d]#   roll20sd of 1d returns
   }
   
   #___________________________________ 
@@ -183,15 +183,15 @@ process_data <- function(dt){
   # feature selection
   
   keep_features <- c("index", "prod",
-                     "newfeat_rollsd_pctlrank1d_windown4wmonths_3",
-                     "newfeat_rollsd_pctlrank1d_windown4wmonths_4",
-                     "newfeat_rollsd_pctlrank1d_windown4wmonths_5", 
-                     "newfeat_rollsd_pctlrank1d_prev_windown4wmonths_9",
-                     "newfeat_rollsd_pctlrank1d_windown4wmonths_2", 
-                     "newfeat_rollsd_pctlrank1d_windown4wmonths_10",
-                     "newfeat_rollsd_pctlrank1d_prev_windown4wmonths_15", 
-                     "newfeat_rollsd_pctlrank1d_windown4wmonths_13",
-                     "newfeat_rollsd_pctlrank1d_prev_windown4wmonths_6",
+                     "rollsd_pctlrank1d_windown4wmonths_3",
+                     "rollsd_pctlrank1d_windown4wmonths_4",
+                     "rollsd_pctlrank1d_windown4wmonths_5", 
+                     "rollsd_pctlrank1d_prev_windown4wmonths_9",
+                     "rollsd_pctlrank1d_windown4wmonths_2", 
+                     "rollsd_pctlrank1d_windown4wmonths_10",
+                     "rollsd_pctlrank1d_prev_windown4wmonths_15", 
+                     "rollsd_pctlrank1d_windown4wmonths_13",
+                     "rollsd_pctlrank1d_prev_windown4wmonths_6",
                      "ratio_RSI_vs_mean_RSI_close_by_date_n_80" # added from month 5 of competition
                      
   ) 
@@ -326,7 +326,13 @@ system.time({
       importance_matrix <- xgb.importance(feature_names = names(trset[, .SD, .SDcols=-c("index", "target")]), model = boost_model) #se guarda por si quiero      revisarla luego
     }
     #
-    xgb.plot.importance(importance_matrix[-1, ], top_n = 20, cex = 0.5, left_margin = 15) # [-1, ] remove smooth quintile from the plot
+    
+    png("../outputs/xgboost_importances.png", width = 600, height = 600)
+    xgb.plot.importance(importance_matrix[-1, ], top_n = 20, cex = 0.8, left_margin = 18, main="FEATURE IMPORTANCE (by Xgboost) ") # [-1, ] remove smooth quintile from the plot
+    dev.off()
+    
+    
+    
   }
   
   
