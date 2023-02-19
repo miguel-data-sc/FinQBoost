@@ -27,7 +27,6 @@ postprocess <- TRUE # minimal postprocess, enforce each quintile columns add to 
 
 #___________________________________
 # load up to date historical EOD adjusted closes, file path:  ../data/uptodate_EOD_Adj.csv
-#dt <- fread("../data/update_DT_ffilled_yahoo_1999-01-01_2023-01-06.csv") # sub 12 data
 dt <- fread(price_history_csv) # sub 12 data
 
 
@@ -83,13 +82,13 @@ find_asset_data <- function(downloaded_dt, from_included, to_included){
 postprocess_sub <- function(submission,
                             balance_columns=TRUE){
   
-  # column balance:
+  # quintile columns balance (for any portfolio .N size):
   if(balance_columns){  
-    submission[, `:=`(Rank5= Rank5-(sum(Rank5)-20)/.N,
-                      Rank4= Rank4-(sum(Rank4)-20)/.N,
-                      Rank3= Rank3-(sum(Rank3)-20)/.N,
-                      Rank2= Rank2-(sum(Rank2)-20)/.N,
-                      Rank1= Rank1-(sum(Rank1)-20)/.N
+    submission[, `:=`(Rank5= Rank5-(sum(Rank5)-(0.2*.N))/.N,
+                      Rank4= Rank4-(sum(Rank4)-(0.2*.N))/.N,
+                      Rank3= Rank3-(sum(Rank3)-(0.2*.N))/.N,
+                      Rank2= Rank2-(sum(Rank2)-(0.2*.N))/.N,
+                      Rank1= Rank1-(sum(Rank1)-(0.2*.N))/.N
     )]  
   }
   return(submission)
