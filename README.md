@@ -6,7 +6,7 @@
 
 - **A boosting-based model that forecasts 4-weeks-ahead relative performance probability of the components of a portfolio as quintile probabilities.**
 
-- [**This post**](https://medium.com/@miguelpmich/the-challenge-of-financial-forecasting-m6-edition-b26c20464f1b)
+- [**This post**](https://link.medium.com/CIFGMz5Nzxb)
 explains the main design aspects of the model and how it was used successfully in the M6. Tested monthly in real-time during the 1-year competition period its performance was very stable, beating the "naive" uniform forecast scores in all 12 monthly submissions. Its final mean score (RPS) was 0.15648, winning the 2nd global prize in the Forecasting Track. It was also the key to winning the 2nd prize in the main global duathlon Track of the M6 Competition.
 
 
